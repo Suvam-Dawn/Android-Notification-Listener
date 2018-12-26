@@ -10,6 +10,7 @@ import android.util.Log;
 
 public class NotificationService extends NotificationListenerService {
     Context context;
+    String titleData="", textData="";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,8 +20,17 @@ public class NotificationService extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         String packageName = sbn.getPackageName();
         Bundle extras = sbn.getNotification().extras;
-        String titleData = extras.getString("android.title");
-        String textData = extras.getCharSequence("android.text").toString();
+        if(extras.getString("android.title")!=null){
+            titleData = extras.getString("android.title");
+        }else{
+            titleData = "";
+        }
+        if(extras.getCharSequence("android.text")!=null){
+            textData = extras.getCharSequence("android.text").toString();
+        }else{
+            textData = "";
+        }
+
         Log.d("Package", packageName);
         Log.d("Title", titleData);
         Log.d("Text", textData);
